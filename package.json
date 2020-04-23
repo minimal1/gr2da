@@ -5,8 +5,25 @@
   "main": "index.js",
   "scripts": {
     "dev:client": "cd client && npm start",
-    "dev:server": "npm init.js"
+    "dev:server": "babel-node init.js"
   },
   "author": "traved",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.10",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "nodemon": "^2.0.3",
+    "prettier": "^2.0.5"
+  }
 }

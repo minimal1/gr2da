@@ -6,6 +6,17 @@
 
 http://gr2da.com
 
+## Service Stack
+
+### Back
+
+- NodeJs - express
+- Mongo DB
+
+### Front
+
+- React
+
 ## Development environment
 
 - [ ] github-travis CI-heroku 연동
