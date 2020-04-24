@@ -1,6 +1,6 @@
 /** @format */
 
-import axios from "axios";
+import axios from "../../server/node_modules/axios";
 
 export const getGreetings = async () => {
   const response = await axios({
