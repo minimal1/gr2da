@@ -3,3 +3,6 @@
 language: node_js
 node_js:
   - node
+
+notifications:
+  slack: tra-ved:ERn0x3WR7RqleFENC69yeXn9
