@@ -38,3 +38,8 @@ http://www.gr2da.com
 - [ ] 로그인
 - [ ] 작품 업로드
 - [ ] 작품 리스트 출력
+
+## Development System
+
+- [x] Issue & PullRequest Template
+- [x] Branch Protection rule
