@@ -53,7 +53,7 @@ class App extends Component {
     const { greetings } = this.state;
     return (
       <main className='main'>
-        <h1 className='main__title'>Welcome to GR2DA 🎨</h1>
+        <h1 className='main__title'>Welcome to GR2DA 🎨💃🏼</h1>
         <form className='main__form' onSubmit={this.handleSubmit}>
           <input
             type='text'
