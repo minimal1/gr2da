@@ -6,6 +6,10 @@
 
 http://www.gr2da.com
 
+## Travis CI status
+
+[![Build Status](https://travis-ci.com/minimal1/gr2da.svg?branch=master)](https://travis-ci.com/minimal1/gr2da)
+
 ## For Dev
 
 - Install Mongo DB
