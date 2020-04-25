@@ -6,6 +6,7 @@
   "scripts": {
     "dev:client": "cd client && npm run dev:start",
     "dev:server": "cd server && npm run dev:start",
+    "dev:start": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "build:client": "cd client && npm run build",
     "build:server": "cd server && npm run build",
     "build": "npm run build:client && npm run build:server",
@@ -27,6 +28,7 @@
   },
   "homepage": "https://github.com/minimal1/gr2da#readme",
   "devDependencies": {
+    "concurrently": "^5.1.0",
     "prettier": "^2.0.5"
   }
 }

@@ -4,14 +4,21 @@
 
 방구석에서 자신의 예술을 만들어가는 우리를 위한 SNS
 
-http://gr2da.com
+http://www.gr2da.com
+
+## For Dev
+
+- Install Mongo DB
+- npm install
+- npm run dev:start
 
 ## Service Stack
 
 ### Back
 
 - NodeJs - express
-- Mongo DB
+- Mongo DB - Mongo Atlas
+  - 'Your computer must have mongoDB for DEVELOPMENT'
 
 ### Front
 
@@ -20,7 +27,7 @@ http://gr2da.com
 ## Development environment
 
 - [ ] github-travis CI-heroku 연동
-- [ ] heroku 도메인 연결
+- [x] heroku 도메인 연결
 
 ## Function
 
