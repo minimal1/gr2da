@@ -43,3 +43,4 @@ http://www.gr2da.com
 
 - [x] Issue & PullRequest Template
 - [x] Branch Protection rule
+- [x] Project Procsess Document
