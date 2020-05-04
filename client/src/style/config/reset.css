@@ -124,7 +124,17 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+a,
+button {
+  all: unset;
+  cursor: pointer;
+}
 
+a:hover,
+button:hover {
+  color: rgba(47, 47, 47);
+  text-decoration: underline;
+}
 * {
   box-sizing: border-box;
 }
