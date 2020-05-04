@@ -1,0 +1,26 @@
+/** @format */
+
+.search-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.search-form .search-form__keyword {
+  padding: 10px 30px;
+  font-size: 14px;
+  border-radius: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+.search-form .search-form__keyword:focus,
+.search-form .search-form__keyword:active {
+  outline: none;
+}
+
+.search-form i {
+  left: 24px;
+  position: relative;
+  font-size: 12px;
+  opacity: 0.7;
+}
