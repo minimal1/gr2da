@@ -2,8 +2,6 @@
   "name": "gr2da",
   "version": "0.1.0",
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "http-proxy-middleware": "^1.0.3",
     "react": "^16.13.1",
@@ -32,5 +30,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0"
   }
 }
