@@ -42,7 +42,7 @@ export const getPosts = async (req, res) => {
 
 export const postUploadImage = async (req, res) => {
   const {
-    body: { title, contact },
+    body: { title },
     file: { location },
   } = req;
 
@@ -51,7 +51,6 @@ export const postUploadImage = async (req, res) => {
     await Post.create({
       fileUrl: location,
       title,
-      contact,
     });
   } catch (error) {
     console.log(`Error on postUploadImage: ${error}`);
