@@ -2,11 +2,13 @@
 
 import express from "express";
 import routes from "../routes";
-import { postAddGreeting, getGreetings } from "../controller/apiController";
+import { postUploadImage, getPosts } from "../controller/apiController";
+import { uploadPaint } from "../middlewares";
 
 const apiRouter = express.Router();
 
-apiRouter.post(routes.greeting, postAddGreeting);
-apiRouter.get(routes.greetings, getGreetings);
+apiRouter.post(routes.upload, uploadPaint, postUploadImage);
+
+apiRouter.get(routes.upload, getPosts);
 
 export default apiRouter;

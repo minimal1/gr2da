@@ -1,5 +1,7 @@
 /** @format */
 import Greeting from "../models/Greeting";
+import Post from "../models/Post";
+import routes from "../routes";
 
 export const postAddGreeting = async (req, res) => {
   const {
@@ -25,4 +27,34 @@ export const getGreetings = async (req, res) => {
     console.log(error);
     res.status(400);
   }
+};
+
+export const getPosts = async (req, res) => {
+  try {
+    const posts = await Post.find({}).sort({ _id: -1 });
+
+    res.json(posts);
+  } catch (error) {
+    console.log(error);
+    res.json("Error");
+  }
+};
+
+export const postUploadImage = async (req, res) => {
+  const {
+    body: { title, contact },
+    file: { location },
+  } = req;
+
+  try {
+    // DB에 추가
+    await Post.create({
+      fileUrl: location,
+      title,
+      contact,
+    });
+  } catch (error) {
+    console.log(`Error on postUploadImage: ${error}`);
+  }
+  res.redirect(routes.home);
 };

@@ -1,10 +1,24 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Modal from "react-modal";
 import Search from "./Search";
+import UploadForm from "./UploadForm";
+
+Modal.setAppElement("#root");
 
 function Header() {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <header className='header'>
       <div className='header__column'>
@@ -21,7 +35,12 @@ function Header() {
             <Link to='/'>그리다 소개</Link>
           </li>
           <li className='header__link'>
-            <button className='header__button'>업로드</button>
+            <button className='header__button' onClick={openModal}>
+              업로드
+            </button>
+            <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
+              <UploadForm close={closeModal} />
+            </Modal>
           </li>
         </ul>
       </div>

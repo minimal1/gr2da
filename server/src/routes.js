@@ -1,12 +1,16 @@
 /** @format */
 
+const HOME = "/";
+
 const API = "/api";
-const GREETING = "/greeting";
-const GREETINGS = "/greetings";
+const POSTS = "/posts";
+const UPLOAD = "/upload";
+
 const routes = {
+  home: HOME,
   api: API,
-  greeting: GREETING,
-  greetings: GREETINGS,
+  upload: UPLOAD,
+  posts: POSTS,
 };
 
 export default routes;
