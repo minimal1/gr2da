@@ -9,5 +9,4 @@ dotenv.config();
 const { PORT } = process.env;
 
 const handleListening = () => console.log(`✅ Listening on: ${PORT}`);
-
 app.listen(PORT, handleListening);
