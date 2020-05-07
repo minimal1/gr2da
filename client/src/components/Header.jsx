@@ -6,7 +6,7 @@ import Modal from "react-modal";
 import Search from "./Search";
 import UploadForm from "./UploadForm";
 
-Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement("#root");
 
 function Header() {
   const [modalIsOpen, setIsOpen] = useState(false);
