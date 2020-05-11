@@ -11,9 +11,6 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: "Title is required",
   },
-  contact: {
-    type: String,
-  },
   createAt: {
     type: Date,
     default: Date.now,

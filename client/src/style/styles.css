@@ -2,6 +2,7 @@
 
 @import "config/reset.css";
 @import "main.css";
-@import "./components/header.css";
 @import "./components/search.css";
 @import "./components/banner.css";
+@import "./components/header.css";
+@import "./components/upload.css";
