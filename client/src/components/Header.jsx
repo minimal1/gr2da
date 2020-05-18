@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import Search from "./Search";
 import Upload from "./Upload";
+import routes from "../routes";
 
-if (process.env.NODE_ENV !== 'test') Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
 function Header() {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -60,7 +61,12 @@ function Header() {
             </Modal>
           </li>
           <li className='header__link'>
-            <Link to='/'>카카오 로그인</Link>
+            <a href={routes.kakao}>
+              <img
+                src='/image/kakao_login_btn_simple_small.png'
+                alt='Kakao Login'
+              />
+            </a>
           </li>
         </ul>
       </div>

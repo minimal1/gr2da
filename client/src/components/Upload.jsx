@@ -1,12 +1,13 @@
 /** @format */
 
 import React from "react";
+import routes from "../routes";
 
 function Upload({ close }) {
   return (
     <div className='upload'>
       <form
-        action='/api/upload'
+        action={routes.upload}
         className='upload__form'
         method='post'
         encType='multipart/form-data'

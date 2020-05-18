@@ -9,4 +9,10 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    createProxyMiddleware("/auth", {
+      target: "http://localhost:4000",
+      changeOrigin: true,
+    })
+  );
 };
