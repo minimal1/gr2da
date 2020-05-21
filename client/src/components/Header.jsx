@@ -6,10 +6,16 @@ import Modal from "react-modal";
 import Search from "./Search";
 import Upload from "./Upload";
 import routes from "../routes";
+import styled from "styled-components";
 
 if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 
-function Header() {
+const Avatar = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+`;
+function Header({ user, isAuthenticated }) {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
@@ -48,26 +54,37 @@ function Header() {
           <li className='header__link'>
             <Link to='/'>그리다 소개</Link>
           </li>
-          <li className='header__link'>
-            <button className='header__button' onClick={openModal}>
-              업로드
-            </button>
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              style={customStyles}
-            >
-              <Upload close={closeModal} />
-            </Modal>
-          </li>
-          <li className='header__link'>
-            <a href={routes.kakao}>
-              <img
-                src='/image/kakao_login_btn_simple_small.png'
-                alt='Kakao Login'
-              />
-            </a>
-          </li>
+          {isAuthenticated ? (
+            <>
+              <li className='header__link'>
+                <button className='header__button' onClick={openModal}>
+                  업로드
+                </button>
+                <Modal
+                  isOpen={modalIsOpen}
+                  onRequestClose={closeModal}
+                  style={customStyles}
+                >
+                  <Upload close={closeModal} avatarUrl={user.avatarUrl} />
+                </Modal>
+              </li>
+              <li className='header__link'>
+                <a href={routes.me}>
+                  <Avatar src={user.avatarUrl} alt='Avatar' />
+                </a>
+                <a href={routes.logout}>Logout</a>
+              </li>
+            </>
+          ) : (
+            <li className='header__link'>
+              <a href={routes.kakao}>
+                <img
+                  src='/image/kakao_login_btn_simple_small.png'
+                  alt='Kakao Login'
+                />
+              </a>
+            </li>
+          )}
         </ul>
       </div>
     </header>

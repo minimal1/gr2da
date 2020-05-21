@@ -3,8 +3,32 @@ import passport from "passport";
 import User from "../models/User";
 import routes from "../routes";
 
+const home = process.env.PRODUCTION ? routes.home : "http://localhost:3000/";
+
+export const loginSuccess = (req, res) => {
+  if (req.user) {
+    res.json({
+      user: {
+        id: req.user.id,
+        name: req.user.name,
+        email: req.user.email,
+        avatarUrl: req.user.avatarUrl,
+      },
+    });
+  }
+};
+
+export const loginFailed = (req, res) => {
+  res.status(401);
+};
+
+export const logout = (req, res) => {
+  req.logout();
+  res.redirect(home);
+};
+
 export const kakaoLogin = passport.authenticate("kakao", {
-  failureRedirect: routes.home,
+  failureRedirect: routes.loginFailed,
   successRedirect: routes.home,
 });
 
@@ -35,6 +59,5 @@ export const kakaoLoginCallBack = async (_, __, profile, cb) => {
 };
 
 export const postKakaoLogin = (req, res) => {
-  console.log(res);
-  res.redirect(routes.home);
+  res.redirect(home);
 };

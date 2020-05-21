@@ -2,8 +2,13 @@
 
 import React from "react";
 import routes from "../routes";
-
-function Upload({ close }) {
+import styled from "styled-components";
+const Avatar = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+`;
+function Upload({ close, avatarUrl }) {
   return (
     <div className='upload'>
       <form
@@ -30,7 +35,7 @@ function Upload({ close }) {
           accept='image/*'
         />
         <div className='upload__content'>
-          <span className='upload__user-avatar'>User</span>
+          <Avatar src={avatarUrl} alt='username' />
           <input
             className='upload__form-text'
             type='text'
