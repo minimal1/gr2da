@@ -1,6 +1,7 @@
 /** @format */
 import Greeting from "../models/Greeting";
 import Post from "../models/Post";
+import User from "../models/User";
 import routes from "../routes";
 
 export const postAddGreeting = async (req, res) => {
@@ -37,6 +38,15 @@ export const getPosts = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.json("Error");
+  }
+};
+
+export const getMyPost = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate("posts");
+    res.json(user.posts);
+  } catch (error) {
+    res.redirect(routes.home);
   }
 };
 

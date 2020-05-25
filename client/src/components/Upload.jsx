@@ -1,12 +1,18 @@
 /** @format */
 
 import React from "react";
-
-function Upload({ close }) {
+import routes from "../routes";
+import styled from "styled-components";
+const Avatar = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+`;
+function Upload({ close, avatarUrl }) {
   return (
     <div className='upload'>
       <form
-        action='/api/upload'
+        action={routes.upload}
         className='upload__form'
         method='post'
         encType='multipart/form-data'
@@ -29,7 +35,7 @@ function Upload({ close }) {
           accept='image/*'
         />
         <div className='upload__content'>
-          <span className='upload__user-avatar'>User</span>
+          <Avatar src={avatarUrl} alt='username' />
           <input
             className='upload__form-text'
             type='text'
