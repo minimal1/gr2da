@@ -19,12 +19,12 @@ function Upload({ close, avatarUrl }) {
       >
         <header className='upload__header'>
           <span className='upload__title'>작품 등록</span>
-          <div upload__column>
+          <div className='upload__column'>
             <button className='upload__button'>
-              <i class='fas fa-file-upload'></i>
+              <i className='fas fa-file-upload'></i>
             </button>
             <button className='upload__button' onClick={close}>
-              <i class='fas fa-times'></i>
+              <i className='fas fa-times'></i>
             </button>
           </div>
         </header>

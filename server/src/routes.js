@@ -10,6 +10,7 @@ const KAKAO_CALLBACK = "/auth/kakao/callback";
 
 const API = "/api";
 const ME = "/me";
+const PROFILES = "/profiles/:id";
 
 const POSTS = "/posts";
 const UPLOAD = "/upload";
@@ -17,6 +18,7 @@ const UPLOAD = "/upload";
 const routes = {
   home: HOME,
   me: ME,
+  profiles: PROFILES,
   loginSuccess: LOGIN_SUCCESS,
   loginFailed: LOGIN_FAILED,
   logout: LOGOUT,
