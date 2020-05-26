@@ -4,17 +4,29 @@ import Post from "../models/Post";
 import User from "../models/User";
 import routes from "../routes";
 
-export const getProfiles = async (req, res) => {
+export const postAddGreeting = async (req, res) => {
   const {
-    params: { id },
+    body: { greeting },
   } = req;
 
   try {
-    const user = await User.findById(id).populate("posts");
-    res.json(user);
+    await Greeting.create({ text: greeting });
+
+    res.status(200);
+  } catch (error) {
+    res.staus(400);
+  } finally {
+    res.end();
+  }
+};
+
+export const getGreetings = async (req, res) => {
+  try {
+    const greetings = await Greeting.find({}).sort({ createdAt: -1 });
+    res.json(greetings);
   } catch (error) {
     console.log(error);
-    res.redirect(401, routes.home);
+    res.status(400);
   }
 };
 
@@ -46,13 +58,10 @@ export const postUploadImage = async (req, res) => {
 
   try {
     // DB에 추가
-    const newPost = await Post.create({
+    await Post.create({
       fileUrl: location,
       title,
-      creator: req.user.id,
     });
-    req.user.posts.push(newPost.id);
-    req.user.save();
   } catch (error) {
     console.log(`Error on postUploadImage: ${error}`);
   }

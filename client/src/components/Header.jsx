@@ -15,7 +15,6 @@ const Avatar = styled.img`
   height: 50px;
   border-radius: 15px;
 `;
-
 function Header({ user, isAuthenticated }) {
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -70,11 +69,9 @@ function Header({ user, isAuthenticated }) {
                 </Modal>
               </li>
               <li className='header__link'>
-                <Link to='/me'>
+                <a href={routes.me}>
                   <Avatar src={user.avatarUrl} alt='Avatar' />
-                </Link>
-              </li>
-              <li className='header__link'>
+                </a>
                 <a href={routes.logout}>Logout</a>
               </li>
             </>
