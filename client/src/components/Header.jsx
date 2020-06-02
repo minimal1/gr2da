@@ -56,7 +56,7 @@ function Header({ user }) {
       </div>
     </header>
   ) : (
-    <></>
+    <>GR2DA</>
   );
 }
 
