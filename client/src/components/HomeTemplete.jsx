@@ -15,16 +15,15 @@ const SectionTitle = styled.h2`
   font-weight: 600;
 `;
 
-function MainPageTemplete({ header, banner, postList }) {
+function MainPageTemplete({ banner, postList }) {
   return (
-    <div className='topContainer'>
-      {header}
+    <>
       {banner}
       <Section>
         <SectionTitle>꿈을 그리다</SectionTitle>
         {postList}
       </Section>
-    </div>
+    </>
   );
 }
 
