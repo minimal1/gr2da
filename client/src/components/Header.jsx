@@ -31,7 +31,7 @@ function Header({ user }) {
           <li className='header__link'>
             <Link to='/'>그리다 소개</Link>
           </li>
-          {user.logged ? (
+          {user && user.logged ? (
             <>
               <li className='header__link'>
                 <Link to='/me'>
