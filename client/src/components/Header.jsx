@@ -16,7 +16,7 @@ const Avatar = styled.img`
 // store 읽어서 login & logout & user 정보
 
 function Header({ user }) {
-  return (
+  return user ? (
     <header className='header'>
       <div className='header__column'>
         <Link to='/'>
@@ -31,7 +31,7 @@ function Header({ user }) {
           <li className='header__link'>
             <Link to='/'>그리다 소개</Link>
           </li>
-          {user && user.logged ? (
+          {user.logged ? (
             <>
               <li className='header__link'>
                 <Link to='/me'>
@@ -55,6 +55,8 @@ function Header({ user }) {
         </ul>
       </div>
     </header>
+  ) : (
+    <></>
   );
 }
 
