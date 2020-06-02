@@ -5,6 +5,7 @@ const kakaoLogin = "/auth/kakao";
 const sessionCheck = "/auth/login/success";
 
 const me = "/api/me";
+const profiles = "/api/profiles";
 const posts = "/api/posts";
 const upload = "/api/upload";
 
