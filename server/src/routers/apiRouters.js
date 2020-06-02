@@ -10,7 +10,7 @@ import {
 import { uploadPaint } from "../middlewares";
 
 const apiRouter = express.Router();
-
+// test
 apiRouter.get(routes.profiles, getProfiles);
 
 apiRouter.post(routes.upload, uploadPaint, postUploadImage);
