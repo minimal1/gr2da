@@ -14,31 +14,10 @@ const List = styled.div`
   grid-gap: 25px;
 `;
 
-function PostList() {
+function PostList({ posts }) {
   // get post data from mobx
-  const [isLoading, setIsLoading] = useState(true);
-  const [itemList, setItemList] = useState([]);
-
-  // 일단 react hook으로 데이터 얻어오기
-  useEffect(() => {
-    setIsLoading(true);
-    async function fetchPosts() {
-      await axios
-        .get(routes.posts)
-        .then(({ status, data }) => {
-          if (status === 200) {
-            setItemList(
-              data.map((item) => <PostItem item={item} key={item._id} />)
-            );
-            setIsLoading(false);
-          }
-        })
-        .catch((err) => console.log(err));
-    }
-    fetchPosts();
-  }, []);
-
-  return isLoading ? "Loading..." : <List>{itemList}</List>;
+  const itemList = posts.map((item) => <PostItem item={item} key={item._id} />);
+  return <List>{itemList}</List>;
 }
 
 export default PostList;

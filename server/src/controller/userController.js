@@ -10,6 +10,7 @@ export const loginSuccess = (req, res) => {
     res.json({
       user: {
         id: req.user.id,
+        nickname: req.user.nickname,
         name: req.user.name,
         email: req.user.email,
         avatarUrl: req.user.avatarUrl,
@@ -51,7 +52,13 @@ export const kakaoLoginCallBack = async (_, __, profile, cb) => {
       return cb(null, user);
     }
 
-    const newUser = await User.create({ kakaoId: id, name, email, avatarUrl });
+    const newUser = await User.create({
+      kakaoId: id,
+      nickname: name,
+      name,
+      email,
+      avatarUrl,
+    });
     return cb(null, newUser);
   } catch (error) {
     return cb(error);

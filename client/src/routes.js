@@ -2,6 +2,7 @@
 
 const logout = "/auth/logout";
 const kakaoLogin = "/auth/kakao";
+const sessionCheck = "/auth/login/success";
 
 const me = "/api/me";
 const profiles = "/api/profiles";
@@ -13,6 +14,7 @@ const routes = {
   kakao: kakaoLogin,
   me,
   profiles,
+  sessionCheck,
   upload: upload,
   posts: posts,
 };
