@@ -15,7 +15,7 @@ const Avatar = styled.img`
 
 // store 읽어서 login & logout & user 정보
 function Header({ user }) {
-  return (
+  return user ? (
     <header className='header'>
       <div className='header__column'>
         <Link to='/'>
@@ -54,6 +54,8 @@ function Header({ user }) {
         </ul>
       </div>
     </header>
+  ) : (
+    <>GR2DA</>
   );
 }
 
