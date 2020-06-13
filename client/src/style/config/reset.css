@@ -127,14 +127,15 @@ table {
 a,
 button {
   all: unset;
+  color: inherit;
   cursor: pointer;
 }
-
 a:hover,
 button:hover {
   color: rgba(47, 47, 47);
   text-decoration: underline;
 }
+
 * {
   box-sizing: border-box;
 }

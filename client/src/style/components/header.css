@@ -1,21 +1,25 @@
 /** @format */
-
-.header {
+.header__wrapper {
   position: fixed;
   left: 0px;
   right: 0px;
   top: 0px;
   width: 100%;
+
+  border-top: 5px solid rgb(166, 211, 247);
+  z-index: 2;
+  background-color: white;
+}
+
+.header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 10px;
-  padding: 30px 100px;
+  padding: 30px 10px;
   align-items: center;
   font-size: 18px;
-  background-color: white;
-  max-width: 1200px;
   margin: 0px auto;
-  z-index: 2;
+  max-width: 1200px;
 }
 
 .header .header__column:nth-child(2) {

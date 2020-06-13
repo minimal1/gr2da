@@ -2,12 +2,12 @@
 .upload {
   width: 400px;
   font-size: 16px;
+  position: relative;
 }
 
 .upload .upload__form {
   display: flex;
   flex-direction: column;
-  position: relative;
   padding: 15px;
   padding-top: 45px;
 }

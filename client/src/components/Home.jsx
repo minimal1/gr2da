@@ -27,7 +27,10 @@ function Home({ location, history }) {
   return isLoading ? (
     <Loading />
   ) : (
-    <HomeTemplete banner={<Banner />} postList={<PostList posts={posts} />} />
+    <HomeTemplete
+      banner={<Banner />}
+      followingList={<PostList posts={posts} />}
+    />
   );
 }
 

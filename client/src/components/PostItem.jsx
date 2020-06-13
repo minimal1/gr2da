@@ -1,50 +1,83 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Modal from "react-modal";
+import Upload from "./Upload";
+import PostDetail from "./PostDetail";
 
 const ItemContent = styled.div`
+  margin-top: 10px;
+  padding: 0 10px;
   font-size: 16px;
   font-weight: 500;
   color: #2f2f2f;
-  opacity: 0;
-
+  h5 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
   span {
-    display: block;
+    color: #818181;
   }
 `;
 const Item = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background-image: url(${(props) => props.src});
-  background-position: center;
-  background-size: cover;
   border: none;
-  border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-  &:hover {
-    background-image: linear-gradient(
-        rgba(255, 255, 255, 0.8),
-        rgba(255, 255, 255, 0.8)
-      ),
-      url(${(props) => props.src});
-    ${ItemContent} {
-      opacity: 1;
-    }
+  cursor: pointer;
+  img {
+    width: 200px;
+    height: 200px;
   }
 `;
 
 function PostItem({ item }) {
-  const { fileUrl: src, title } = item;
+  const { fileUrl: src, title, creator, _id } = item;
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: "0",
+      border: "none",
+      // boxShadow:
+      //   "0 1px 1px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.12), 0 4px 4px rgba(0,0,0,0.12), 0 8px 8px rgba(0,0,0,0.12), 0 16px 16px rgba(0,0,0,0.12)",
+    },
+  };
 
   return (
-    <Item src={src}>
-      <ItemContent>
-        <span>{title}</span>
-        {/* <span>{userName}</span> */}
-      </ItemContent>
-    </Item>
+    <>
+      <Item onClick={openModal}>
+        <img src={src} alt={title} />
+        <ItemContent>
+          <h5>{title}</h5>
+          <Link to={`/profiles/${creator._id}`}>
+            <span>{creator.name}</span>
+          </Link>
+        </ItemContent>
+      </Item>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+      >
+        <PostDetail close={closeModal} postId={_id} />
+      </Modal>
+    </>
   );
 }
 

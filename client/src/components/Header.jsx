@@ -16,44 +16,60 @@ const Avatar = styled.img`
 // store 읽어서 login & logout & user 정보
 function Header({ user }) {
   return user ? (
-    <header className='header'>
-      <div className='header__column'>
-        <Link to='/'>
-          <h1 className='header__title'>GR2DA</h1>
-        </Link>
-      </div>
-      <div className='header__column'>
-        <Search />
-      </div>
-      <div className='header__column'>
-        <ul className='header__links'>
-          <li className='header__link'>
-            <Link to='/'>그리다 소개</Link>
-          </li>
-          {user.logged ? (
-            <>
-              <li className='header__link'>
-                <Link to='/me'>
-                  <Avatar src={user.loggedUser.avatarUrl} alt='Avatar' />
-                </Link>
-              </li>
-              <li className='header__link'>
-                <button onClick={user.logout}>Logout</button>
-              </li>
-            </>
-          ) : (
+    <div className='header__wrapper'>
+      <header className='header'>
+        <div className='header__column'>
+          <ul className='header__links'>
             <li className='header__link'>
-              <button onClick={user.login}>
-                <img
-                  src='/image/kakao_login_btn_simple_small.png'
-                  alt='Kakao Login'
-                />
-              </button>
+              <Link to='/'>
+                <img src='/image/logo.png' alt='GR2DA logo' />
+              </Link>
             </li>
-          )}
-        </ul>
-      </div>
-    </header>
+            <li className='header__link'>
+              <Link to='/'>
+                <span>둘러보기</span>
+              </Link>
+            </li>
+            <li className='header__link'>
+              <Link to='/'>
+                <span>보관함</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className='header__column'>
+          <Search />
+        </div>
+        <div className='header__column'>
+          <ul className='header__links'>
+            <li className='header__link'>
+              <Link to='/'>그리다 소개</Link>
+            </li>
+            {user.logged ? (
+              <>
+                <li className='header__link'>
+                  <Link to='/me'>
+                    <Avatar src={user.loggedUser.avatarUrl} alt='Avatar' />
+                  </Link>
+                </li>
+                <li className='header__link'>
+                  <button onClick={user.logout}>Logout</button>
+                </li>
+              </>
+            ) : (
+              <li className='header__link'>
+                <button onClick={user.login}>
+                  <img
+                    src='/image/kakao_login_btn_simple_small.png'
+                    alt='Kakao Login'
+                  />
+                </button>
+              </li>
+            )}
+          </ul>
+        </div>
+      </header>
+    </div>
   ) : (
     <>GR2DA</>
   );

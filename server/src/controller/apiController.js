@@ -20,9 +20,24 @@ export const getProfiles = async (req, res) => {
 
 export const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find({}).sort({ _id: -1 });
+    const posts = await Post.find({}).sort({ _id: -1 }).populate("creator");
 
     res.json(posts);
+  } catch (error) {
+    console.log(error);
+    res.json("Error");
+  }
+};
+
+export const getPostDetail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const post = await Post.findById(id).populate("creator");
+
+    res.json(post);
   } catch (error) {
     console.log(error);
     res.json("Error");

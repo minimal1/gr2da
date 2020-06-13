@@ -53,7 +53,7 @@ function Profile({ user, isMe }) {
       <Avatar src={user.avatarUrl} />
       <Content>
         <ContentRow>
-          <span className='nickname'>{user.nickname}준비중</span>
+          <span className='nickname'>{user.nickname}</span>
           {isMe ? <button>프로필 수정</button> : null}
         </ContentRow>
         <span className='username'>{user.name}</span>

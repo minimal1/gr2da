@@ -12,6 +12,9 @@ import Loading from "./Loading";
 import Profile from "./Profile";
 import PostList from "./PostList";
 
+Modal.setAppElement("#root");
+Modal.defaultStyles.overlay.backgroundColor = "rgba(0,0,0,0.6)";
+
 const Button = styled.button`
   font-size: 16px;
   margin-top: 15px;
@@ -42,7 +45,7 @@ function UserDetail({ match, history, loggedUser, logged }) {
   };
   const customStyles = {
     content: {
-      top: "25%",
+      top: "50%",
       left: "50%",
       right: "auto",
       bottom: "auto",
@@ -50,8 +53,9 @@ function UserDetail({ match, history, loggedUser, logged }) {
       transform: "translate(-50%, -50%)",
       padding: "0",
       border: "none",
-      boxShadow:
-        "0 1px 1px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.12), 0 4px 4px rgba(0,0,0,0.12), 0 8px 8px rgba(0,0,0,0.12), 0 16px 16px rgba(0,0,0,0.12)",
+      borderRadius: "10px",
+      // boxShadow:
+      //   "0 1px 1px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.12), 0 4px 4px rgba(0,0,0,0.12), 0 8px 8px rgba(0,0,0,0.12), 0 16px 16px rgba(0,0,0,0.12)",
     },
   };
 
