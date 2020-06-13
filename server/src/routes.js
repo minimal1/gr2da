@@ -13,7 +13,8 @@ const ME = "/me";
 const PROFILES = "/profiles/:id";
 
 const POSTS = "/posts";
-const POSTDEATIL = "/posts/:id";
+const POST_DEATIL = "/posts/:id";
+const POST_DELETE = "/posts/:id/delete";
 const UPLOAD = "/upload";
 
 const routes = {
@@ -27,7 +28,8 @@ const routes = {
   kakaoCallBack: KAKAO_CALLBACK,
   api: API,
   upload: UPLOAD,
-  postDetail: POSTDEATIL,
+  postDetail: POST_DEATIL,
+  postDelete: POST_DELETE,
   posts: POSTS,
 };
 

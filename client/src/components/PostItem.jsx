@@ -20,6 +20,7 @@ const ItemContent = styled.div`
     color: #818181;
   }
 `;
+
 const ItemImage = styled.div`
   width: 175px;
   height: 175px;
@@ -48,6 +49,7 @@ function PostItem({ item }) {
   const closeModal = () => {
     setIsOpen(false);
   };
+
   const customStyles = {
     content: {
       top: "50%",

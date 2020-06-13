@@ -73,3 +73,23 @@ export const postUploadImage = async (req, res) => {
   }
   res.redirect(routes.home);
 };
+
+export const deletePost = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const post = await Post.findById(id);
+
+    if (post.creator !== req.user.id) {
+      throw Error();
+    } else {
+      await Post.findOneAndRemove({ _id: id });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  res.redirect(routes.home);
+};
