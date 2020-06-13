@@ -5,6 +5,7 @@ import styled from "styled-components";
 import axios from "axios";
 import routes from "../routes";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 const PostModal = styled.div`
   display: flex;
@@ -83,7 +84,7 @@ function PostDetail({ postId }) {
       </Contents>
     </PostModal>
   ) : (
-    <>loading</>
+    <Loading />
   );
 }
 
