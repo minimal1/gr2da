@@ -5,6 +5,7 @@ import passportLocalMongoose from "passport-local-mongoose";
 
 const UserSchema = new mongoose.Schema({
   name: String,
+  nickname: String,
   email: String,
   avatarUrl: String,
   kakaoId: Number,
@@ -16,7 +17,7 @@ const UserSchema = new mongoose.Schema({
   ],
 });
 
-UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
+UserSchema.plugin(passportLocalMongoose, { usernameField: "kakaoId" });
 
 const model = mongoose.model("User", UserSchema);
 
