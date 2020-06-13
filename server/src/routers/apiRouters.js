@@ -6,6 +6,7 @@ import {
   postUploadImage,
   getPosts,
   getProfiles,
+  getPostDetail,
 } from "../controller/apiController";
 import { uploadPaint } from "../middlewares";
 
@@ -17,5 +18,6 @@ apiRouter.get(routes.profiles, getProfiles);
 apiRouter.post(routes.upload, uploadPaint, postUploadImage);
 
 apiRouter.get(routes.posts, getPosts);
+apiRouter.get(routes.postDetail, getPostDetail);
 
 export default apiRouter;

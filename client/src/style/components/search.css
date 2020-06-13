@@ -10,7 +10,7 @@
   padding: 10px 30px;
   font-size: 14px;
   border-radius: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 2px solid rgb(166, 211, 247);
   width: 100%;
 }
 .search-form .search-form__keyword:focus,
