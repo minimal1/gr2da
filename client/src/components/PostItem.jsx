@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
-import Upload from "./Upload";
 import PostDetail from "./PostDetail";
 
 const ItemContent = styled.div`

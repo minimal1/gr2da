@@ -156,7 +156,7 @@ function Upload({ close }) {
             사진파일
             <input
               type='file'
-              id='paintFile'
+              name='paintFile'
               onChange={handlePreview}
               accept='image/*'
             />
