@@ -17,7 +17,7 @@ body {
 
 .topContainer {
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 955px;
   height: 5000vh;
   display: flex;
   flex-direction: column;
