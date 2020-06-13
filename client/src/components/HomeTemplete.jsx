@@ -27,7 +27,7 @@ const SectionTitle = styled.h2`
     font-size: 16px;
     margin-left: 5px;
     cursor: pointer;
-  } */
+  }
 `;
 
 function MainPageTemplete({

@@ -3,7 +3,7 @@
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 // import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "../style/components/carousel.css"
+import "../style/components/carousel.css";
 
 function Banner() {
   return (
@@ -19,9 +19,7 @@ function Banner() {
         showIndicators={false}
       >
         <div>
-          <img
-            src='https://user-images.githubusercontent.com/18658656/84562877-73ed8d80-ad92-11ea-9ec4-aeb07e461ea2.png'
-          />
+          <img src='https://user-images.githubusercontent.com/18658656/84562877-73ed8d80-ad92-11ea-9ec4-aeb07e461ea2.png' />
         </div>
         {/* <div>
           <img
