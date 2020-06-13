@@ -7,10 +7,10 @@
 }
 
 .search-form .search-form__keyword {
-  padding: 10px 30px;
+  padding: 7px 30px;
   font-size: 14px;
   border-radius: 30px;
-  border: 2px solid rgb(166, 211, 247);
+  border: 1px solid #9ccbfc;
   width: 100%;
 }
 .search-form .search-form__keyword:focus,
@@ -23,4 +23,5 @@
   position: relative;
   font-size: 12px;
   opacity: 0.7;
+  color: #9ccbfc;
 }

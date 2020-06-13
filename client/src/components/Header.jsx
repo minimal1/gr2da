@@ -8,9 +8,9 @@ import styled from "styled-components";
 import { observer, inject } from "mobx-react";
 
 const Avatar = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 15px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
 `;
 
 // store 읽어서 login & logout & user 정보
@@ -22,7 +22,7 @@ function Header({ user }) {
           <ul className='header__links'>
             <li className='header__link'>
               <Link to='/'>
-                <img src='/image/logo.png' alt='GR2DA logo' />
+                <img className='logo' src='/image/logo1.png' alt='GR2DA logo' />
               </Link>
             </li>
             <li className='header__link'>
@@ -33,6 +33,11 @@ function Header({ user }) {
             <li className='header__link'>
               <Link to='/'>
                 <span>보관함</span>
+              </Link>
+            </li>
+            <li className='header__link'>
+              <Link to='/'>
+                <span>이용권</span>
               </Link>
             </li>
           </ul>
@@ -48,12 +53,12 @@ function Header({ user }) {
             {user.logged ? (
               <>
                 <li className='header__link'>
+                  <button onClick={user.logout}>Logout</button>
+                </li>
+                <li className='header__link'>
                   <Link to='/me'>
                     <Avatar src={user.loggedUser.avatarUrl} alt='Avatar' />
                   </Link>
-                </li>
-                <li className='header__link'>
-                  <button onClick={user.logout}>Logout</button>
                 </li>
               </>
             ) : (

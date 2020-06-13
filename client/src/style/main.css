@@ -12,12 +12,12 @@ body {
   color: #2f2f2f;
   background-color: #ffffff;
   padding: 10px 30px;
-  padding-top: 130px;
+  padding-top: 70px;
 }
 
 .topContainer {
   margin: 0 auto;
-  max-width: 955px;
+  width: 955px;
   height: 5000vh;
   display: flex;
   flex-direction: column;
