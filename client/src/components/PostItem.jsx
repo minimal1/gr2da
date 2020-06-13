@@ -65,12 +65,26 @@ function PostItem({ item }) {
     },
   };
 
+  const textLengthOverCut = (txt, len, lastTxt) => {
+    if (len === "" || len === null) {
+      len = 20;
+    }
+    if (lastTxt === "" || lastTxt === null) {
+      lastTxt = "...";
+    }
+    if (txt.length > len) {
+      txt = txt.substr(0, len) + lastTxt;
+    }
+
+    return txt;
+  };
+
   return (
     <>
       <Item onClick={openModal}>
         <ItemImage src={src} />
         <ItemContent>
-          <h5>{title}</h5>
+          <h5>{textLengthOverCut(title, 7, "...")}</h5>
           <Link to={`/profiles/${creator._id}`}>
             <span>{creator.name}</span>
           </Link>
