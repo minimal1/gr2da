@@ -20,16 +20,21 @@ const ItemContent = styled.div`
     color: #818181;
   }
 `;
+const ItemImage = styled.div`
+  width: 175px;
+  height: 175px;
+  border-radius: 5px;
+  background: ${(props) => (props.src ? `url(${props.src})` : "#F5F6F7")};
+  background-position: center;
+  background-size: cover;
+`;
+
 const Item = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   border: none;
   cursor: pointer;
-  img {
-    width: 200px;
-    height: 200px;
-  }
 `;
 
 function PostItem({ item }) {
@@ -61,7 +66,7 @@ function PostItem({ item }) {
   return (
     <>
       <Item onClick={openModal}>
-        <img src={src} alt={title} />
+        <ItemImage src={src} />
         <ItemContent>
           <h5>{title}</h5>
           <Link to={`/profiles/${creator._id}`}>

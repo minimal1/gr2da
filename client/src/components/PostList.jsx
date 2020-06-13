@@ -7,13 +7,13 @@ import PostItem from "./PostItem";
 import routes from "../routes";
 
 const List = styled.div`
-  width: 1200px;
+  width: 955px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(5, 200px);
-  grid-auto-rows: 250px;
-  column-gap: 50px;
-  row-gap: 25px;
+  grid-template-columns: repeat(5, 175px);
+  grid-auto-rows: 225px;
+  column-gap: 20px;
+  row-gap: 20px;
 `;
 
 function PostList({ posts }) {
