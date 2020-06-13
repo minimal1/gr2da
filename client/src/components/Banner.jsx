@@ -2,7 +2,8 @@
 
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "../style/components/carousel.css"
 
 function Banner() {
   return (
@@ -14,15 +15,15 @@ function Banner() {
         showThumbs={false}
         stopOnHover
         dynamicHeight
+        showStatus={false}
+        showIndicators={false}
       >
         <div>
           <img
-            src='https://cdn.pixabay.com/photo/2020/04/30/20/51/flower-5114574_960_720.jpg'
-            height='300'
+            src='https://user-images.githubusercontent.com/18658656/84562877-73ed8d80-ad92-11ea-9ec4-aeb07e461ea2.png'
           />
-          <p className='legend'>소개 1</p>
         </div>
-        <div>
+        {/* <div>
           <img
             src='https://cdn.pixabay.com/photo/2014/12/04/14/46/magnolia-trees-556718_960_720.jpg'
             height='300'
@@ -35,7 +36,7 @@ function Banner() {
             height='300'
           />
           <p className='legend'>소개 3</p>
-        </div>
+        </div> */}
       </Carousel>
     </div>
   );
