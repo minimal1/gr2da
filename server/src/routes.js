@@ -14,6 +14,7 @@ const PROFILES = "/profiles/:id";
 
 const POSTS = "/posts";
 const POST_DEATIL = "/posts/:id";
+const POST_EDIT = "/posts/:id/edit";
 const POST_DELETE = "/posts/:id/delete";
 const UPLOAD = "/upload";
 
@@ -29,6 +30,7 @@ const routes = {
   api: API,
   upload: UPLOAD,
   postDetail: POST_DEATIL,
+  postEdit: POST_EDIT,
   postDelete: POST_DELETE,
   posts: POSTS,
 };

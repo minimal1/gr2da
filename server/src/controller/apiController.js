@@ -74,6 +74,39 @@ export const postUploadImage = async (req, res) => {
   res.redirect(routes.home);
 };
 
+export const getEditPost = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const post = await Post.findById(id);
+    if (String(post.creator) !== req.user.id) {
+      throw Error();
+    } else {
+      res.json(post);
+    }
+  } catch (error) {
+    console.log(error);
+
+    res.redirect(401, routes.home);
+  }
+};
+
+export const postEditPost = async (req, res) => {
+  const {
+    params: { id },
+    body: { title },
+  } = req;
+
+  try {
+    const post = await Post.findOneAndUpdate({ _id: id }, { title });
+    res.redirect(routes.me);
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+
 export const deletePost = async (req, res) => {
   const {
     params: { id },
@@ -82,10 +115,10 @@ export const deletePost = async (req, res) => {
   try {
     const post = await Post.findById(id);
 
-    if (post.creator !== req.user.id) {
+    if (String(post.creator) !== req.user.id) {
       throw Error();
     } else {
-      await Post.findOneAndRemove({ _id: id });
+      await Post.findOneAndDelete({ _id: id });
     }
   } catch (error) {
     console.log(error);
