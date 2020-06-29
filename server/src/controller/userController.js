@@ -47,7 +47,6 @@ export const kakaoLoginCallBack = async (_, __, profile, cb) => {
 
     if (user) {
       user.kakaoId = id;
-      user.avatarUrl = avatarUrl;
       user.save();
       return cb(null, user);
     }

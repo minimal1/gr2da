@@ -10,13 +10,16 @@ import {
   deletePost,
   getEditPost,
   postEditPost,
+  postEditProfile,
 } from "../controller/apiController";
-import { uploadPaint } from "../middlewares";
+import { uploadPaint, uploadProfile } from "../middlewares";
 
 const apiRouter = express.Router();
 
 // test
 apiRouter.get(routes.profiles, getProfiles);
+
+apiRouter.post(routes.editProfile, uploadProfile, postEditProfile);
 
 apiRouter.post(routes.upload, uploadPaint, postUploadImage);
 

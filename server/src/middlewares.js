@@ -17,5 +17,13 @@ const multerPaint = multer({
     acl: "public-read",
   }),
 });
+const multerProfile = multer({
+  storage: multerS3({
+    s3,
+    bucket: "gr2da/profiles",
+    acl: "public-read",
+  }),
+});
 
 export const uploadPaint = multerPaint.single("paintFile");
+export const uploadProfile = multerProfile.single("profileFile");

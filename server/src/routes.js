@@ -11,6 +11,7 @@ const KAKAO_CALLBACK = "/auth/kakao/callback";
 const API = "/api";
 const ME = "/me";
 const PROFILES = "/profiles/:id";
+const EDIT_PROFILE = "/profiles/:id/edit";
 
 const POSTS = "/posts";
 const POST_DEATIL = "/posts/:id";
@@ -22,6 +23,7 @@ const routes = {
   home: HOME,
   me: ME,
   profiles: PROFILES,
+  editProfile: EDIT_PROFILE,
   loginSuccess: LOGIN_SUCCESS,
   loginFailed: LOGIN_FAILED,
   logout: LOGOUT,

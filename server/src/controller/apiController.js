@@ -18,6 +18,35 @@ export const getProfiles = async (req, res) => {
   }
 };
 
+export const postEditProfile = async (req, res) => {
+  const {
+    params: { id },
+    file,
+    body: { nickname },
+  } = req;
+
+  console.log(req);
+
+  try {
+    if (id !== req.user.id) {
+      throw Error("Unauthorized");
+    }
+
+    const user = await User.findOneAndUpdate(
+      { _id: id },
+      {
+        nickname: nickname !== "" ? nickname : req.user.nickname,
+        avatarUrl: file ? file.location : req.user.avatarUrl,
+      }
+    );
+
+    res.redirect(routes.me);
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
+};
+
 export const getPosts = async (req, res) => {
   try {
     const posts = await Post.find({}).sort({ _id: -1 }).populate("creator");
