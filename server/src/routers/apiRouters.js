@@ -11,6 +11,7 @@ import {
   getEditPost,
   postEditPost,
   postEditProfile,
+  postAddComment,
 } from "../controller/apiController";
 import { uploadPaint, uploadProfile } from "../middlewares";
 
@@ -31,5 +32,7 @@ apiRouter.get(routes.postDelete, deletePost);
 
 apiRouter.get(routes.posts, getPosts);
 apiRouter.get(routes.postDetail, getPostDetail);
+
+apiRouter.post(routes.addComment, postAddComment);
 
 export default apiRouter;

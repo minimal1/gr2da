@@ -2,6 +2,7 @@
 import Greeting from "../models/Greeting";
 import Post from "../models/Post";
 import User from "../models/User";
+import Comment from "../models/Comment";
 import routes from "../routes";
 
 export const getProfiles = async (req, res) => {
@@ -64,7 +65,9 @@ export const getPostDetail = async (req, res) => {
   } = req;
 
   try {
-    const post = await Post.findById(id).populate("creator");
+    const post = await Post.findById(id)
+      .populate("creator")
+      .populate("comments");
 
     res.json(post);
   } catch (error) {
@@ -154,4 +157,30 @@ export const deletePost = async (req, res) => {
   }
 
   res.redirect(routes.home);
+};
+
+export const postAddComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { comment },
+    user,
+  } = req;
+
+  try {
+    const post = await Post.findById(id);
+    const newComment = await Comment.create({
+      text: comment,
+      creator: user.id,
+    });
+
+    post.comments.push(newComment.id);
+    post.save();
+
+    res.status(200);
+  } catch (error) {
+    console.log(error);
+    res.status(400);
+  } finally {
+    res.end();
+  }
 };
