@@ -17,6 +17,8 @@ const POSTS = "/posts";
 const POST_DEATIL = "/posts/:id";
 const POST_EDIT = "/posts/:id/edit";
 const POST_DELETE = "/posts/:id/delete";
+const ADD_COMMENT = "/posts/:id/comment";
+
 const UPLOAD = "/upload";
 
 const routes = {
@@ -35,6 +37,7 @@ const routes = {
   postEdit: POST_EDIT,
   postDelete: POST_DELETE,
   posts: POSTS,
+  addComment: ADD_COMMENT,
 };
 
 export default routes;

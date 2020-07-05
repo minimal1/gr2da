@@ -10,6 +10,128 @@ import { inject, observer } from "mobx-react";
 import EditPostItem from "./EditPostItem";
 import Modal from "react-modal";
 
+function PostDetail({ close, postId, logged, loggedUser }) {
+  const [item, setItem] = useState(null);
+  const [comment, setComment] = useState("");
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: "0",
+      border: "none",
+      // boxShadow:
+      //   "0 1px 1px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.12), 0 4px 4px rgba(0,0,0,0.12), 0 8px 8px rgba(0,0,0,0.12), 0 16px 16px rgba(0,0,0,0.12)",
+    },
+  };
+
+  const handleEdit = (event) => {
+    // close();
+    openModal();
+  };
+
+  const handleChange = (event) => {
+    event.preventDefault();
+
+    const { value } = event.target;
+
+    setComment(value);
+  };
+
+  const handleAddComment = (event) => {
+    event.preventDefault();
+
+    axios
+      .post(`${routes.posts}/${postId}/comment`, {
+        comment,
+      })
+      .then(({ status }) => {
+        if (status === 400) throw new Error("Error in adding comment");
+      })
+      .catch((err) => console.log(err))
+      .then(() => {
+        axios
+          .get(`${routes.posts}/${postId}`)
+          .then(({ status, data }) => {
+            if (status === 200) setItem(data);
+            else throw new Error("Error in getting posts for Home");
+          })
+          .catch((err) => console.log(err));
+      })
+      .finally(() => setComment(""));
+  };
+
+  useEffect(() => {
+    axios
+      .get(`${routes.posts}/${postId}`)
+      .then(({ status, data }) => {
+        if (status === 200) setItem(data);
+        else throw new Error("Error in getting posts for Home");
+      })
+      .catch((err) => console.log(err));
+  }, [postId]);
+
+  return item ? (
+    <PostModal>
+      <PostImg src={item.fileUrl} />
+      <Contents>
+        <Link to={`/profiles/${item.creator._id}`}>
+          <div className='author'>
+            <Avatar src={item.creator.avatarUrl} alt='Avatar' />
+            <span>{item.creator.name}</span>
+          </div>
+        </Link>
+        <h5>{item.title}</h5>
+        {logged && loggedUser.id === item.creator._id ? (
+          <div>
+            <button id='edit' onClick={handleEdit}>
+              Edit
+            </button>
+
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              style={customStyles}
+            >
+              <EditPostItem id={postId} close={closeModal} />
+            </Modal>
+          </div>
+        ) : null}
+        <Comments>
+          {item.comments.map((comment) => {
+            return <Comment key={comment._id}>{comment.text}</Comment>;
+          })}
+          <form onSubmit={handleAddComment}>
+            <input
+              type='text'
+              name='comment'
+              placeholder='Input any comment'
+              value={comment}
+              onChange={handleChange}
+            />
+          </form>
+        </Comments>
+      </Contents>
+    </PostModal>
+  ) : (
+    <Loading />
+  );
+}
+
 const PostModal = styled.div`
   display: flex;
   justify-content: space-between;
@@ -61,80 +183,9 @@ const Avatar = styled.img`
   margin-right: 10px;
 `;
 
-function PostDetail({ close, postId, logged, loggedUser }) {
-  const [item, setItem] = useState(null);
-  const [modalIsOpen, setIsOpen] = useState(false);
+const Comments = styled.div``;
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
-  const customStyles = {
-    content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      padding: "0",
-      border: "none",
-      // boxShadow:
-      //   "0 1px 1px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.12), 0 4px 4px rgba(0,0,0,0.12), 0 8px 8px rgba(0,0,0,0.12), 0 16px 16px rgba(0,0,0,0.12)",
-    },
-  };
-
-  const handleEdit = (event) => {
-    // close();
-    openModal();
-  };
-
-  useEffect(() => {
-    axios
-      .get(`${routes.posts}/${postId}`)
-      .then(({ status, data }) => {
-        if (status === 200) setItem(data);
-        else throw new Error("Error in getting posts for Home");
-      })
-      .catch((err) => console.log(err));
-  }, [postId]);
-
-  return item ? (
-    <PostModal>
-      <PostImg src={item.fileUrl} />
-      <Contents>
-        <Link to={`/profiles/${item.creator._id}`}>
-          <div className='author'>
-            <Avatar src={item.creator.avatarUrl} alt='Avatar' />
-            <span>{item.creator.name}</span>
-          </div>
-        </Link>
-        <h5>{item.title}</h5>
-        {logged && loggedUser.id === item.creator._id ? (
-          <div>
-            <button id='edit' onClick={handleEdit}>
-              Edit
-            </button>
-
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              style={customStyles}
-            >
-              <EditPostItem id={postId} close={closeModal} />
-            </Modal>
-          </div>
-        ) : null}
-      </Contents>
-    </PostModal>
-  ) : (
-    <Loading />
-  );
-}
+const Comment = styled.div``;
 
 export default inject(({ user }) => ({
   logged: user.logged,
