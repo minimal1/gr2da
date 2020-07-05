@@ -8,20 +8,28 @@ import {
   getProfiles,
   getPostDetail,
   deletePost,
+  getEditPost,
+  postEditPost,
+  postEditProfile,
 } from "../controller/apiController";
-import { uploadPaint } from "../middlewares";
+import { uploadPaint, uploadProfile } from "../middlewares";
 
 const apiRouter = express.Router();
 
 // test
 apiRouter.get(routes.profiles, getProfiles);
 
+apiRouter.post(routes.editProfile, uploadProfile, postEditProfile);
+
 apiRouter.post(routes.upload, uploadPaint, postUploadImage);
 
-apiRouter.get(routes.posts, getPosts);
-apiRouter.get(routes.postDetail, getPostDetail);
+apiRouter.get(routes.postEdit, getEditPost);
+apiRouter.post(routes.postEdit, postEditPost);
 
 // delete post
 apiRouter.get(routes.postDelete, deletePost);
+
+apiRouter.get(routes.posts, getPosts);
+apiRouter.get(routes.postDetail, getPostDetail);
 
 export default apiRouter;

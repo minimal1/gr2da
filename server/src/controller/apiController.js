@@ -18,6 +18,35 @@ export const getProfiles = async (req, res) => {
   }
 };
 
+export const postEditProfile = async (req, res) => {
+  const {
+    params: { id },
+    file,
+    body: { nickname },
+  } = req;
+
+  console.log(req);
+
+  try {
+    if (id !== req.user.id) {
+      throw Error("Unauthorized");
+    }
+
+    const user = await User.findOneAndUpdate(
+      { _id: id },
+      {
+        nickname: nickname !== "" ? nickname : req.user.nickname,
+        avatarUrl: file ? file.location : req.user.avatarUrl,
+      }
+    );
+
+    res.redirect(routes.me);
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
+};
+
 export const getPosts = async (req, res) => {
   try {
     const posts = await Post.find({}).sort({ _id: -1 }).populate("creator");
@@ -74,6 +103,39 @@ export const postUploadImage = async (req, res) => {
   res.redirect(routes.home);
 };
 
+export const getEditPost = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const post = await Post.findById(id);
+    if (String(post.creator) !== req.user.id) {
+      throw Error();
+    } else {
+      res.json(post);
+    }
+  } catch (error) {
+    console.log(error);
+
+    res.redirect(401, routes.home);
+  }
+};
+
+export const postEditPost = async (req, res) => {
+  const {
+    params: { id },
+    body: { title },
+  } = req;
+
+  try {
+    const post = await Post.findOneAndUpdate({ _id: id }, { title });
+    res.redirect(routes.me);
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+
 export const deletePost = async (req, res) => {
   const {
     params: { id },
@@ -82,10 +144,10 @@ export const deletePost = async (req, res) => {
   try {
     const post = await Post.findById(id);
 
-    if (post.creator !== req.user.id) {
+    if (String(post.creator) !== req.user.id) {
       throw Error();
     } else {
-      await Post.findOneAndRemove({ _id: id });
+      await Post.findOneAndDelete({ _id: id });
     }
   } catch (error) {
     console.log(error);

@@ -6,6 +6,9 @@ import axios from "axios";
 import routes from "../routes";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
+import { inject, observer } from "mobx-react";
+import EditPostItem from "./EditPostItem";
+import Modal from "react-modal";
 
 const PostModal = styled.div`
   display: flex;
@@ -58,8 +61,38 @@ const Avatar = styled.img`
   margin-right: 10px;
 `;
 
-function PostDetail({ postId }) {
+function PostDetail({ close, postId, logged, loggedUser }) {
   const [item, setItem] = useState(null);
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      padding: "0",
+      border: "none",
+      // boxShadow:
+      //   "0 1px 1px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.12), 0 4px 4px rgba(0,0,0,0.12), 0 8px 8px rgba(0,0,0,0.12), 0 16px 16px rgba(0,0,0,0.12)",
+    },
+  };
+
+  const handleEdit = (event) => {
+    // close();
+    openModal();
+  };
+
   useEffect(() => {
     axios
       .get(`${routes.posts}/${postId}`)
@@ -81,6 +114,21 @@ function PostDetail({ postId }) {
           </div>
         </Link>
         <h5>{item.title}</h5>
+        {logged && loggedUser.id === item.creator._id ? (
+          <div>
+            <button id='edit' onClick={handleEdit}>
+              Edit
+            </button>
+
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              style={customStyles}
+            >
+              <EditPostItem id={postId} close={closeModal} />
+            </Modal>
+          </div>
+        ) : null}
       </Contents>
     </PostModal>
   ) : (
@@ -88,4 +136,7 @@ function PostDetail({ postId }) {
   );
 }
 
-export default PostDetail;
+export default inject(({ user }) => ({
+  logged: user.logged,
+  loggedUser: user.loggedUser,
+}))(observer(PostDetail));
