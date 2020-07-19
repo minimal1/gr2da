@@ -1,19 +1,20 @@
 /** @format */
 
-import React, { Component, useEffect } from "react";
+import * as React from "react";
 import "./style/styles.css";
 import { Route } from "react-router-dom";
 import Home from "./components/Home";
 import UserDetail from "./components/UserDetail";
 import Header from "./components/Header";
-import axios from "axios";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
+import { useStores } from "./stores";
 
-function App({ sessionCheck }) {
+const App = observer(() => {
+  const { user } = useStores();
   // 로그인 여부 확인
 
-  useEffect(() => {
-    sessionCheck();
+  React.useEffect(() => {
+    user.sessionCheck();
   });
 
   return (
@@ -25,8 +26,6 @@ function App({ sessionCheck }) {
       <Route path='/profiles/:id' component={UserDetail} />
     </div>
   );
-}
+});
 
-export default inject(({ user }) => ({
-  sessionCheck: user.sessionCheck,
-}))(observer(App));
+export default App;

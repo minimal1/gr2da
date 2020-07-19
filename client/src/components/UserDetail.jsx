@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "react-modal";
-import { observer, inject } from "mobx-react";
+import { observer, inject, useObserver } from "mobx-react";
 
 import routes from "../routes";
 import styled from "styled-components";
@@ -11,36 +11,39 @@ import Upload from "./Upload";
 import Loading from "./Loading";
 import Profile from "./Profile";
 import PostList from "./PostList";
+import { useStores } from "../stores";
 
 Modal.setAppElement("#root");
 Modal.defaultStyles.overlay.backgroundColor = "rgba(0,0,0,0.6)";
 
-const Button = styled.button`
-  font-size: 16px;
-  margin-top: 15px;
-  align-self: flex-end;
-`;
+function useUserStores() {
+  const { user } = useStores();
 
-const Posts = styled.section`
-  border-top: 1px solid grey;
-  width: 100%;
-  padding-top: 15px;
-  margin-top: 15px;
-`;
+  return useObserver(() => ({
+    loggedUser: user.loggedUser,
+    logged: user.logged,
+  }));
+}
 
-function UserDetail({ match, history, loggedUser, logged }) {
+const UserDetail = observer(({ match, history }) => {
+  const { loggedUser, logged } = useUserStores();
+
   const id = match.params.id || (logged ? loggedUser.id : -1);
   const isMe = logged && id === loggedUser.id;
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [uploaded, setUploaded] = useState(false);
 
   const openModal = () => {
     setIsOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (uploaded) => {
+    if (uploaded) {
+      setUploaded(uploaded);
+    }
     setIsOpen(false);
   };
   const customStyles = {
@@ -75,8 +78,9 @@ function UserDetail({ match, history, loggedUser, logged }) {
       })
       .finally(() => {
         setIsLoading(false);
+        setUploaded(false);
       });
-  }, [id, history]);
+  }, [id, uploaded, history]);
 
   return isLoading ? (
     <Loading />
@@ -92,7 +96,11 @@ function UserDetail({ match, history, loggedUser, logged }) {
             onRequestClose={closeModal}
             style={customStyles}
           >
-            <Upload close={closeModal} avatarUrl={user.avatarUrl} />
+            <Upload
+              close={closeModal}
+              avatarUrl={user.avatarUrl}
+              history={history}
+            />
           </Modal>
         </>
       ) : null}
@@ -101,9 +109,18 @@ function UserDetail({ match, history, loggedUser, logged }) {
       </Posts>
     </>
   );
-}
+});
 
-export default inject(({ user }) => ({
-  logged: user.logged,
-  loggedUser: user.loggedUser,
-}))(observer(UserDetail));
+const Button = styled.button`
+  font-size: 16px;
+  margin-top: 15px;
+  align-self: flex-end;
+`;
+
+const Posts = styled.section`
+  border-top: 1px solid grey;
+  width: 100%;
+  padding-top: 15px;
+  margin-top: 15px;
+`;
+export default UserDetail;
