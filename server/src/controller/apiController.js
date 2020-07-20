@@ -67,7 +67,10 @@ export const getPostDetail = async (req, res) => {
   try {
     const post = await Post.findById(id)
       .populate("creator")
-      .populate("comments");
+      .populate({
+        path: "comments",
+        populate: { path: "creator", select: "nickname avatarUrl kakaoId" },
+      });
 
     res.json(post);
   } catch (error) {
@@ -100,10 +103,17 @@ export const postUploadImage = async (req, res) => {
     });
     req.user.posts.push(newPost.id);
     req.user.save();
+
+    res.status(200).json({
+      uploadedId: newPost.id,
+    });
   } catch (error) {
     console.log(`Error on postUploadImage: ${error}`);
+
+    res.status(500).json({
+      uploadedId: -1,
+    });
   }
-  res.redirect(routes.home);
 };
 
 export const getEditPost = async (req, res) => {

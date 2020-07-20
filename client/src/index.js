@@ -2,18 +2,18 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { Provider } from "mobx-react";
+import { MobXProviderContext } from "mobx-react";
 import RootStore from "./stores";
 
 const root = new RootStore();
 
 ReactDOM.render(
-  <Provider {...root}>
+  <MobXProviderContext.Provider value={root}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>,
+  </MobXProviderContext.Provider>,
   document.getElementById("root")
 );

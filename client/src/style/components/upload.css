@@ -25,10 +25,6 @@
   border-bottom: 1px solid rgba(47, 47, 47, 0.1);
 }
 
-.upload__button {
-  color: rgba(47, 47, 47, 0.5);
-}
-
 .upload__button + .upload__button {
   margin-left: 15px;
 }

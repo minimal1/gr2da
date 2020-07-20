@@ -5,50 +5,6 @@ import styled from "styled-components";
 import Modal from "react-modal";
 import EditProfile from "./EditProfile";
 
-const UserProfile = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Avatar = styled.img`
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 1px solid #707070;
-`;
-
-const Content = styled.div`
-  margin-left: 100px;
-  display: flex;
-  flex-direction: column;
-
-  .username {
-    font-weight: 500;
-    font-size: 16px;
-    margin-bottom: 15px;
-  }
-  .email {
-    font-size: 16px;
-    font-weight: 300;
-  }
-`;
-
-const ContentRow = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
-  .nickname {
-    font-size: 30px;
-  }
-
-  button {
-    margin-left: 30px;
-    padding: 5px 10px;
-    border: 1px solid #707070;
-  }
-`;
-
 function Profile({ user, isMe }) {
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -100,5 +56,48 @@ function Profile({ user, isMe }) {
     </UserProfile>
   );
 }
+const UserProfile = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Avatar = styled.img`
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 1px solid #707070;
+`;
+
+const Content = styled.div`
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+
+  .username {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  .email {
+    font-size: 16px;
+    font-weight: 300;
+  }
+`;
+
+const ContentRow = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  .nickname {
+    font-size: 30px;
+  }
+
+  button {
+    margin-left: 30px;
+    padding: 5px 10px;
+    border: 1px solid #707070;
+  }
+`;
 
 export default Profile;
