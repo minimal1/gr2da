@@ -22,6 +22,7 @@ export default class UserStore {
     axios
       .get(routes.sessionCheck)
       .then((res) => {
+        console.log(res);
         if (res.status === 200) {
           this.loggedUser = res.data.user;
           this.logged = true;

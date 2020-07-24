@@ -5,8 +5,132 @@ import routes from "../routes";
 import styled from "styled-components";
 import Axios from "axios";
 import Loading from "./Loading";
-import { inject, observer } from "mobx-react";
+import { inject, observer, useObserver, useLocalStore } from "mobx-react";
+import { useStores } from "../stores";
 import { Link } from "react-router-dom";
+
+function useUserStores() {
+  const { user } = useStores();
+
+  return useObserver(() => ({
+    loggedUser: user.loggedUser,
+    logged: user.logged,
+    sessionCheck: user.sessionCheck,
+  }));
+}
+
+const EditProfile = observer(({ close }) => {
+  const { loggedUser, logged, sessionCheck } = useUserStores();
+
+  if (!logged) {
+    window.open("/", "_self");
+  }
+  const localStore = useLocalStore(() => ({
+    nickname: "",
+    preview: loggedUser.avatarUrl,
+    profileFile: undefined,
+  }));
+
+  const handleChange = (event) => {
+    event.preventDefault();
+    localStore.nickname = event.target.value;
+  };
+
+  const handlePreview = (event) => {
+    event.preventDefault();
+
+    if (event.target.files[0]) {
+      const fileReader = new FileReader();
+      const file = event.target.files[0];
+      localStore.profileFile = file;
+
+      fileReader.onloadend = () => {
+        localStore.preview = fileReader.result;
+      };
+
+      fileReader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    updateProfile()
+      .then((res) => {
+        if (res.status !== 200) {
+          throw new Error("Error on updating");
+        } else {
+          close();
+          sessionCheck();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  function updateProfile() {
+    const url = `${routes.profiles}/${loggedUser.id}/edit`;
+    const formData = new FormData();
+    formData.append("nickname", localStore.nickname);
+    if (localStore.profileFile) {
+      formData.append("profileFile", localStore.profileFile);
+    }
+
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+
+    return Axios.post(url, formData, config);
+  }
+
+  return logged ? (
+    <ProfileEditModal>
+      <header>
+        <h5>프로필 수정</h5>
+        <button onClick={close}>
+          <i className="fas fa-times"></i>
+        </button>
+      </header>
+      <form
+        action={`${routes.profiles}/${loggedUser.id}/edit`}
+        method="post"
+        encType="multipart/form-data"
+        onSubmit={handleSubmit}
+      >
+        <Image>
+          <span>프로필</span>
+          <Preview src={localStore.preview} />
+          <label>
+            프로필사진
+            <input
+              type="file"
+              name="profileFile"
+              onChange={handlePreview}
+              accept="image/*"
+            />
+          </label>
+        </Image>
+        <Title>
+          <span>이름</span>
+          <input type="text" name="title" disabled value={loggedUser.name} />
+        </Title>
+        <Title>
+          <span>별명</span>
+          <input
+            type="text"
+            name="nickname"
+            placeholder={loggedUser.nickname}
+            value={localStore.nickname}
+            onChange={handleChange}
+          />
+        </Title>
+        <button>수정</button>
+      </form>
+    </ProfileEditModal>
+  ) : null;
+});
 
 const ProfileEditModal = styled.div`
   border-radius: 15px;
@@ -125,70 +249,4 @@ const Preview = styled.div`
   background-size: cover;
 `;
 
-function EditProfile({ close, id, logged, loggedUser }) {
-  if (!logged) {
-    window.open("/", "_self");
-  }
-  const [preview, setPreview] = useState(loggedUser.avatarUrl);
-
-  const handlePreview = (event) => {
-    event.preventDefault();
-
-    const fileReader = new FileReader();
-    const file = event.target.files[0];
-
-    fileReader.onloadend = () => {
-      setPreview(fileReader.result);
-    };
-
-    fileReader.readAsDataURL(file);
-  };
-
-  return logged ? (
-    <ProfileEditModal>
-      <header>
-        <h5>프로필 수정</h5>
-        <button onClick={close}>
-          <i className='fas fa-times'></i>
-        </button>
-      </header>
-      <form
-        action={`${routes.profiles}/${loggedUser.id}/edit`}
-        method='post'
-        encType='multipart/form-data'
-      >
-        <Image>
-          <span>프로필</span>
-          <Preview src={preview} />
-          <label>
-            프로필사진
-            <input
-              type='file'
-              name='profileFile'
-              onChange={handlePreview}
-              accept='image/*'
-            />
-          </label>
-        </Image>
-        <Title>
-          <span>이름</span>
-          <input type='text' name='title' disabled value={loggedUser.name} />
-        </Title>
-        <Title>
-          <span>별명</span>
-          <input
-            type='text'
-            name='nickname'
-            placeholder={loggedUser.nickname}
-          />
-        </Title>
-        <button>수정</button>
-      </form>
-    </ProfileEditModal>
-  ) : null;
-}
-
-export default inject(({ user }) => ({
-  logged: user.logged,
-  loggedUser: user.loggedUser,
-}))(observer(EditProfile));
+export default EditProfile;

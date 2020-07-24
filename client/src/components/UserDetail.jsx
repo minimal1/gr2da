@@ -80,7 +80,7 @@ const UserDetail = observer(({ match, history }) => {
         setIsLoading(false);
         setUploaded(false);
       });
-  }, [id, uploaded, history]);
+  }, [id, loggedUser, uploaded, history]);
 
   return isLoading ? (
     <Loading />

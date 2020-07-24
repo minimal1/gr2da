@@ -1,4 +1,5 @@
 /** @format */
+// eslint-disable-next-line no-unused-vars
 import Greeting from "../models/Greeting";
 import Post from "../models/Post";
 import User from "../models/User";
@@ -41,10 +42,21 @@ export const postEditProfile = async (req, res) => {
       }
     );
 
-    res.redirect(routes.me);
+    console.log(user);
+
+    res.status(200).json({
+      // user: {
+      //   id: user.id,
+      //   nickname: user.nickname,
+      //   name: user.name,
+      //   email: user.email,
+      //   avatarUrl: user.avatarUrl,
+      // },
+    });
   } catch (error) {
     console.log(error);
-    res.redirect(routes.home);
+
+    res.status(500).json({});
   }
 };
 
@@ -142,6 +154,7 @@ export const postEditPost = async (req, res) => {
   } = req;
 
   try {
+    // eslint-disable-next-line no-unused-vars
     const post = await Post.findOneAndUpdate({ _id: id }, { title });
     res.redirect(routes.me);
   } catch (error) {
